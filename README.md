@@ -64,7 +64,7 @@ Users can post their project details, interact with collaborators, and utilize M
 
 ## 👨‍💻 Authors
 
-- **Manoj Kumar M** — Full-stack Developer (Frontend, Q&A System, MongoDB Integration)
+- **Naaz Nurain** — Full-stack Developer (Frontend, Q&A System, MongoDB Integration)
 - **Kiran HP** — Firebase for Real-time Chat
 
 <br/>
