@@ -89,17 +89,23 @@ const ProjectDetailPage = async ({ params: { id } }: URLProps) => {
 
     const isAuthor = userId === project?.authorClerkId;
 
-    // Convert applicants to plain objects
-    const applicantsWithDetails = await Promise.all(
-      project.applicants?.map(async (applicantId: ObjectId) => {
-        const user = await User.findById(applicantId).lean();
-        return {
-          _id: user?._id.toString(),
-          name: user?.name || 'Unknown',
-          picture: user?.picture || null,
-        };
-      })
-    );
+interface IUser {
+  _id: string;
+  name?: string;
+  picture?: string;
+}
+
+const applicantsWithDetails = await Promise.all(
+  project.applicants?.map(async (applicantId: ObjectId) => {
+    const user = await User.findById(applicantId).lean<IUser>();
+    if (!user) return { _id: '', name: 'Unknown', picture: null };
+    return {
+      _id: user._id.toString(),
+      name: user.name || 'Unknown',
+      picture: user.picture || null,
+    };
+  }) || []
+);
 
     return (
       <div className="w-full -mt-8 mx-auto px-4 py-2 rounded-md bg-gray-100 dark:bg-black">
